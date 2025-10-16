@@ -12,28 +12,28 @@ public class CaeserCipher {
             )
     );
 
-    public String encrypt(String plainText, int key) {
-        return cryptosystem(plainText, key, 1);
+    public String encrypt(String plainText, int key, boolean space) {
+        return cryptosystem(plainText, key, 1, space);
     }
 
-    public String decrypt(String cipherText, int key) {
-        return cryptosystem(cipherText, key, 2);
+    public String decrypt(String cipherText, int key, boolean space) {
+        return cryptosystem(cipherText, key, 2, space);
     }
 
-    private String cryptosystem(String text, int key, int mod) {
+    private String cryptosystem(String text, int key, int mod, boolean space) {
         StringBuilder characters = new StringBuilder();
 
         for (int i = 0; i < text.length(); i++) {
             for (char c : alphabet) {
-                if  (text.charAt(i) == ' ') {
+                if  (space && text.charAt(i) == ' ') {
                     characters.append(' ');
                     break;
                 } else if (c == text.toLowerCase().charAt(i)) {
-                    if (mod == 1) {
-                        characters.append(alphabet.get(getModulo(alphabet.indexOf(c)+(key))));
-                    } else {
-                        characters.append(alphabet.get(getModulo(alphabet.indexOf(c)-(key))));
-                    }
+                    boolean isUpperCase = Character.isUpperCase(text.charAt(i));
+                    int shift = (mod == 1) ? key : -key;
+                    char newChar = alphabet.get(getModulo(alphabet.indexOf(c) + shift));
+                    if (isUpperCase) newChar = Character.toUpperCase(newChar);
+                    characters.append(newChar);
                 }
             }
         }

@@ -13,8 +13,8 @@ class CaeserCipherTest {
     void encrypt() {
         String plainText = "ATTACK AT DAWN";
         int key = 3;
-        String expected = "dwwdfn dw gdzq";
-        String actual = cipher.encrypt(plainText, key);
+        String expected = "DWWDFNDWGDZQ";
+        String actual = cipher.encrypt(plainText, key, false);
         assertEquals(expected, actual);
     }
 
@@ -23,7 +23,7 @@ class CaeserCipherTest {
         String cipherText = "dahhk";
         int key = 4;
         String expected = "hello";
-        String actual = cipher.encrypt(cipherText, key);
+        String actual = cipher.encrypt(cipherText, key, true);
         assertEquals(expected, actual);
     }
 }
