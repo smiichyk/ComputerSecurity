@@ -13,29 +13,27 @@ public class CaeserCipher {
     );
 
     public String encrypt(String plainText, int key) {
-        StringBuilder characters = new StringBuilder();
-        for (int i = 0; i < plainText.length(); i++) {
-            for (char c : alphabet) {
-                if (plainText.charAt(i) == ' ') {
-                    characters.append(' ');
-                    break;
-                } else if (c == plainText.toLowerCase().charAt(i)) {
-                    characters.append(alphabet.get(getModulo(alphabet.indexOf(c)+(key))));
-                }
-            }
-        }
-        return characters.toString();
+        return cryptosystem(plainText, key, 1);
     }
 
     public String decrypt(String cipherText, int key) {
+        return cryptosystem(cipherText, key, 2);
+    }
+
+    private String cryptosystem(String text, int key, int mod) {
         StringBuilder characters = new StringBuilder();
-        for (int i = 0; i < cipherText.length(); i++) {
+
+        for (int i = 0; i < text.length(); i++) {
             for (char c : alphabet) {
-                if  (cipherText.charAt(i) == ' ') {
+                if  (text.charAt(i) == ' ') {
                     characters.append(' ');
                     break;
-                } else if (c == cipherText.toLowerCase().charAt(i)) {
-                    characters.append(alphabet.get(getModulo(alphabet.indexOf(c)-(key))));
+                } else if (c == text.toLowerCase().charAt(i)) {
+                    if (mod == 1) {
+                        characters.append(alphabet.get(getModulo(alphabet.indexOf(c)+(key))));
+                    } else {
+                        characters.append(alphabet.get(getModulo(alphabet.indexOf(c)-(key))));
+                    }
                 }
             }
         }
