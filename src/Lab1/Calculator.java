@@ -1,6 +1,4 @@
-package Calculator;
-
-import java.util.Scanner;
+package Lab1;
 
 public class Calculator {
 
